@@ -14,6 +14,8 @@ const tableau_chrono = ['15 minutes', '30 minutes', '45 minutes', '60 minutes'];
 
 const sample_check = document.getElementById('js_check_sample');
 
+const accapella_check = document.getElementById('js_check_accapella');
+
 function Generate(){
     //GENERATION DU BPM
     var bpm = 1;
@@ -53,7 +55,8 @@ function Generate(){
     //GENERATION SAMPLE
     var sample = 'SAMPLE';
     if(sample_check.checked){
-        fetch("https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLfuuwfx2LGYNhJ78u3I02IcOqUt6l-YaE&key=AIzaSyBezc970iXsyuJ0ybuTnof2h9AaNqt844s")
+        playlistId = 'PLfuuwfx2LGYNhJ78u3I02IcOqUt6l-YaE'
+        fetch("https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId="+playlistId+"&key=AIzaSyBezc970iXsyuJ0ybuTnof2h9AaNqt844s")
         .then((result)=>{
             return result.json()
         }).then((data)=>{
@@ -64,6 +67,26 @@ function Generate(){
 
     }else{
         var sample = 'Aucun'
+        result_area.innerHTML += '<br/>Sample : Aucun';
+
+    }
+
+    //GENERATION SAMPLE
+    var accapella = 'Accapella';
+    if(accapella_check.checked){
+        playlistIdbis = 'PLfuuwfx2LGYMs3h5E7mWEvVcPW04VC916'
+        fetch("https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId="+playlistIdbis+"&key=AIzaSyBezc970iXsyuJ0ybuTnof2h9AaNqt844s")
+        .then((result)=>{
+            return result.json()
+        }).then((data)=>{
+            items_number = Math.floor(chance.floating({ min: 1, max: data.items.length}))
+            var accapella = data.items[items_number].snippet.resourceId.videoId;
+            result_area.innerHTML += '<br/>Sample : <a href="https://www.youtube.com/watch?v='+accapella+'" target="_blank">https://www.youtube.com/watch?v='+accapella+'</a>';
+        });
+
+    }else{
+        var accapella = 'Aucun'
+        result_area.innerHTML += '<br/>Accapella : Aucun';
     }
 
     //AFFICHAGE RESULTAT
