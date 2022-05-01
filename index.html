@@ -8,8 +8,24 @@
     <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
-    <h1>Hello</h1>
+    <h1>Générateur d'idée</h1>
 
+    <main>
+        <div class="form" id="js_form">
+            <input type="checkbox" id="js_check_bpm" name="js_check_bpm" checked> <label for="js_check_bpm">Générer un BPM</label> <br/>
+            <input type="checkbox" id="js_check_genre" name="js_check_genre"> <label for="js_check_genre">Générer un genre</label><br/>
+            <input type="checkbox" id="js_check_sousgenre" name="js_check_sousgenre"> <label for="js_check_sousgenre">Générer un sous-genre</label><br/>
+            <input type="checkbox" id="js_check_sample" name="js_check_sample"> <label for="js_check_sample">Générer un sample</label><br/>
+            <input type="checkbox" id="js_check_chrono" name="js_check_chrono"> <label for="js_check_chrono">Générer une durée maximum</label><br/>
+            <button onclick="Generate()">GO !</button><br/><br/>
+        </div>
+
+        <div class="result" id="js_result">
+
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chance/1.0.18/chance.min.js"></script>
     <script src="script/main.js"></script>
 </body>
 </html>
