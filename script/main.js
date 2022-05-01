@@ -1,20 +1,30 @@
 const result_area = document.getElementById('js_result');
-
 const bpm_check =  document.getElementById('js_check_bpm');
-
 const genre_check =  document.getElementById('js_check_genre');
 const sousgenre_check =  document.getElementById('js_check_sousgenre');
-
 const tableau_genre_electro = ['Futur House', 'Futur Bass']
 const tableau_genre_prod = ['Trap', 'lofi']
 const tableau_genre = [tableau_genre_electro, tableau_genre_prod]
-
 const chrono_check = document.getElementById("js_check_chrono");
 const tableau_chrono = ['15 minutes', '30 minutes', '45 minutes', '60 minutes'];
-
 const sample_check = document.getElementById('js_check_sample');
-
 const accapella_check = document.getElementById('js_check_accapella');
+
+//SELECT / DESELECT
+function SelectAll(){
+    const checkboxlist = document.querySelectorAll('input');
+    for(i=0; i<checkboxlist.length; i++){  
+        if(checkboxlist[i].type=='checkbox')  
+            checkboxlist[i].checked=true;  
+    }  
+}
+function DeSelectAll(){
+    const checkboxlist = document.querySelectorAll('input');
+    for(i=0; i<checkboxlist.length; i++){  
+        if(checkboxlist[i].type=='checkbox')  
+            checkboxlist[i].checked=false;  
+    }  
+}
 
 function Generate(){
     //GENERATION DU BPM
@@ -29,7 +39,6 @@ function Generate(){
     if (genre_check.checked) {
 
         var genre_general = tableau_genre[Math.floor(Math.random() * tableau_genre.length)];
-
         if(sousgenre_check.checked){
             var sousgenre = genre_general[Math.floor(Math.random() * genre_general.length)];
             var genre_final = sousgenre;
@@ -48,6 +57,7 @@ function Generate(){
     //GENERATION DI CHRONO
     if(chrono_check.checked){
         var chrono = tableau_chrono[Math.floor(Math.random() * tableau_chrono.length)];
+        
     }else{
         var chrono = 'Pas du durée'
     }
@@ -81,7 +91,7 @@ function Generate(){
         }).then((data)=>{
             items_number = Math.floor(chance.floating({ min: 1, max: data.items.length}))
             var accapella = data.items[items_number].snippet.resourceId.videoId;
-            result_area.innerHTML += '<br/>Sample : <a href="https://www.youtube.com/watch?v='+accapella+'" target="_blank">https://www.youtube.com/watch?v='+accapella+'</a>';
+            result_area.innerHTML += '<br/>Accapella : <a href="https://www.youtube.com/watch?v='+accapella+'" target="_blank">https://www.youtube.com/watch?v='+accapella+'</a>';
         });
 
     }else{
