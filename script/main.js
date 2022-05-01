@@ -1,12 +1,14 @@
 const result_area = document.getElementById('js_result');
-const bpm_check =  document.getElementById('js_check_bpm');
+
 const genre_check =  document.getElementById('js_check_genre');
-const sousgenre_check =  document.getElementById('js_check_sousgenre');
-const tableau_genre_electro = ['Futur House', 'Futur Bass']
-const tableau_genre_prod = ['Trap', 'lofi']
-const tableau_genre = [tableau_genre_electro, tableau_genre_prod]
+const tableau_genre = ['Futur House/Futur Bounce', 'Color House', 'Dubstep', 'Deep House','Progressive House', 'Futur Bass', 'Vaporwave', 'Bass House', 'Pop House','Trap', 'Drill', 'Afro', 'Emo', 'Lofi', 'Acoustic', 'Bass Trap', 'Jazzy', 'Digital', 'Bounce', 'Tryhard', 'Rock'];
+
+const artiste_check = document.getElementById('js_check_artiste');
+const tableau_artiste = ['Mike Williams', 'Mesto', 'Mofalk', 'Ziak', 'Freeze Corleone', 'Alpha Wann', 'Damso', 'Martin Garrix', 'Brooks', 'Dj snake', 'Laylow', 'Wit', 'Benjamin Epps', 'Travis Scott', 'Kendrick Lamar', 'XXXTentacion', 'Jonas Aden', '75eme Session', 'Cabballero & JeanJass', 'The Chainsmokers', 'Aya Nakamura', 'PNL', 'Jauzz', 'Plk', 'Ysos (fait pas ca stp)',  ]
+
 const chrono_check = document.getElementById("js_check_chrono");
-const tableau_chrono = ['15 minutes', '30 minutes', '45 minutes', '60 minutes'];
+const tableau_chrono = ['15 minutes', '30 minutes', '45 minutes', '60 minutes', '90 minutes', '2 heures'];
+
 const sample_check = document.getElementById('js_check_sample');
 const accapella_check = document.getElementById('js_check_accapella');
 
@@ -27,29 +29,17 @@ function DeSelectAll(){
 }
 
 function Generate(){
-    //GENERATION DU BPM
-    var bpm = 1;
-    if (bpm_check.checked) {
-        bpm = Math.floor(chance.floating({ min: 70, max: 180 }));
+    //GENERATION ARTISTE
+    if (artiste_check.checked) {
+        var artiste_final = tableau_artiste[Math.floor(Math.random() * tableau_artiste.length)];
     } else {
-        var bpm = 'Aucun'
+        var artiste_final = 'Aucun'
     } 
-
     //GENRATION DU GENRE
     if (genre_check.checked) {
 
-        var genre_general = tableau_genre[Math.floor(Math.random() * tableau_genre.length)];
-        if(sousgenre_check.checked){
-            var sousgenre = genre_general[Math.floor(Math.random() * genre_general.length)];
-            var genre_final = sousgenre;
-        }
-        else{
-            var genre_final = genre_general;
-        }
+        var genre_final = tableau_genre[Math.floor(Math.random() * tableau_genre.length)];
         
-        if(genre_general === tableau_genre_electro){
-            bpm = Math.floor(chance.floating({ min: 100, max: 110 }));
-        }
     } else {
         var genre_final = 'Aucun'
     } 
@@ -100,5 +90,8 @@ function Generate(){
     }
 
     //AFFICHAGE RESULTAT
-    result_area.innerHTML = 'Bpm de :'+bpm+'<br/>Genre : '+genre_final+'<br/>Chrono : '+chrono+'';
+    if(artiste_check.checked && genre_check.checked){
+        alert('Attention, tu as selectionné un artiste et un genre, le resulat du générateur pourrait inchorent !');
+    }
+    result_area.innerHTML = 'Genre : '+genre_final+'<br/> Artiste : '+artiste_final+'<br/>Chrono : '+chrono+'';
 }
